@@ -1,0 +1,70 @@
+import processing.video.*;
+int x,y,x1,y1,loc;
+color c;
+Capture cam;
+void setup() {
+  size(640, 480);
+
+  String[] cameras = Capture.list();
+  
+  if (cameras.length == 0) {
+    println("There are no cameras available for capture.");
+    exit();
+  } else {
+    println("Available cameras:");
+    for (int i = 0; i < cameras.length; i++) {
+      println(cameras[i]);
+    }
+    
+    // The camera can be initialized directly using an 
+    // element from the array returned by list():
+    cam = new Capture(this, cameras[0]);
+    cam.start();     
+  }      
+}
+void captureEvent(Capture cam) {  
+  // Step 4. Read the image from the camera.  
+  cam.read();
+}
+void draw() {
+  
+  loadPixels();
+  cam.loadPixels();  
+
+  for ( x = 0; x < cam.width; x++) {    
+    for ( y = 0; y < cam.height; y++) {      
+      // Calculate the 1D location from a 2D grid
+      int loc = x + y * cam.width;      
+    
+      // Get the red, green, blue values from a pixel      
+      float r = red  (cam.pixels[loc]);      
+      float g = green(cam.pixels[loc]);      
+      float b = blue (cam.pixels[loc]);      
+      if(r > 252){ 
+        x1 = x;
+        y1 = y;
+      // Calculate an amount to change brightness based on proximity to the mouse      
+      //float d = dist(x, y, loc, loc);      
+      //float adjustbrightness = map(d, 0, 100, 4, 0);      
+      //r *= adjustbrightness;      
+      //g *= adjustbrightness;      
+      //b *= adjustbrightness;      
+      
+      // Constrain RGB to make sure they are within 0-255 color range      
+      //r = constrain(r, 0, 255);      
+      //g = constrain(g, 0, 255);      
+      //b = constrain(b, 0, 255);      
+
+      // Make a new color and set pixel in the window      
+         c = color(255, 0, 0); 
+      
+      println(r);
+      //pixels[loc] = c;   
+      }else {pixels[loc] = color(r,g,b);}
+    }  
+  }  
+  
+  updatePixels();
+        ellipse(x1,y1,100,100);
+
+}

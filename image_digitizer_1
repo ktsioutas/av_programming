@@ -1,7 +1,9 @@
   
 PImage img;
 color c;
-int psif_size = 3;
+int psif_size = 30;
+int movement = 10;
+int sze = 1;
 
 void setup() {
   size(1000, 700);
@@ -21,9 +23,14 @@ void draw() {
     for (int i = 0; i < img.width; i+=psif_size) {
           for (int j = 0; j < img.height; j+=psif_size) {
                 //για κάθε pixel πάρε το χρώμα του (R,G,B) και βάλτα στη c
-                c = img.pixels[j*img.width + i];      
+                c = img.pixels[j*img.width + i];
+      
                 fill(c);//χρωμάτισε με χρώμα c το επόμενο σχήμα
-                rect(sze*i,sze*j, psif_size+random(-movement ,movement),psif_size+random(-movement ,movement));          } 
+
+                rect(sze*i,sze*j, psif_size+random(-movement ,movement),psif_size+random(-movement ,movement));
+
+
+          } 
     }
     //κάνε update τα pixel με τα χρώματά τους και εμφάνισε το αποτέλεσμα 
    img.updatePixels();

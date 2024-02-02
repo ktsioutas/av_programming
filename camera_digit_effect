@@ -1,0 +1,59 @@
+import processing.video.*;
+
+Capture cam;
+color c;
+int psif_size = 2;
+
+int movement = 2;
+int sze = 1;
+void setup() {
+  size(640, 480);
+
+  String[] cameras = Capture.list();
+  
+  if (cameras.length == 0) {
+    println("There are no cameras available for capture.");
+    exit();
+  } else {
+    println("Available cameras:");
+    for (int i = 0; i < cameras.length; i++) {
+      println(cameras[i]);
+    }
+    
+    // The camera can be initialized directly using an 
+    // element from the array returned by list():
+    cam = new Capture(this, cameras[0]);
+    cam.start();     
+  }      
+}
+
+void draw() {
+  background(0);
+  if (cam.available() == true) {
+    cam.read();
+  }
+cam.loadPixels();// η img.loadPixels() διαβάζει όλα το χρώμα των pixels της εικόνας
+                     // και τα αποθηκέυει στο πίνακα pixels[]
+                     // το χρώμα είναι μια μεταβλητή color με τρια ορίσματα για R,G,B
+    
+    //Τρέχουμε μια διπλή for για να έχουμε i και j (x kai y) για κάθε pixel                 
+    for (int i = 0; i < cam.width; i+=psif_size) {
+          for (int j = 0; j < cam.height; j+=psif_size) {
+                //για κάθε pixel πάρε το χρώμα του (R,G,B) και βάλτα στη c
+                c = cam.pixels[j*cam.width + i];
+                //if(red(c) > 80)c = 255;
+                if(blue(c) > 80)c = 255;
+                //if(green(c) > 80)c = 255;
+                
+                fill(c);//χρωμάτισε με χρώμα c το επόμενο σχήμα
+                noStroke();
+                rect(sze*i,sze*j, psif_size+random(-movement ,movement),psif_size+random(-movement ,movement));
+
+          } 
+    }
+    //κάνε update τα pixel με τα χρώματά τους και εμφάνισε το αποτέλεσμα 
+   cam.updatePixels();
+
+  
+}
+

@@ -23,8 +23,7 @@ void draw() {
                 //για κάθε pixel πάρε το χρώμα του (R,G,B) και βάλτα στη c
                 c = img.pixels[j*img.width + i];      
                 fill(c);//χρωμάτισε με χρώμα c το επόμενο σχήμα
-                rect(i,j, psif_size,psif_size);
-          } 
+                rect(sze*i,sze*j, psif_size+random(-movement ,movement),psif_size+random(-movement ,movement));          } 
     }
     //κάνε update τα pixel με τα χρώματά τους και εμφάνισε το αποτέλεσμα 
    img.updatePixels();

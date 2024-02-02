@@ -1,0 +1,32 @@
+  
+PImage img;
+color c;
+int psif_size = 3;
+
+void setup() {
+  size(1000, 700);
+  img = loadImage("joconda.jpg");
+  
+}      
+
+void draw() { 
+  background(255);
+  
+    //Διαδικασία pixelate 
+    img.loadPixels();// η img.loadPixels() διαβάζει όλα το χρώμα των pixels της εικόνας
+                     // και τα αποθηκέυει στο πίνακα pixels[]
+                     // το χρώμα είναι μια μεταβλητή color με τρια ορίσματα για R,G,B
+    
+    //Τρέχουμε μια διπλή for για να έχουμε i και j (x kai y) για κάθε pixel                 
+    for (int i = 0; i < img.width; i+=psif_size) {
+          for (int j = 0; j < img.height; j+=psif_size) {
+                //για κάθε pixel πάρε το χρώμα του (R,G,B) και βάλτα στη c
+                c = img.pixels[j*img.width + i];      
+                fill(c);//χρωμάτισε με χρώμα c το επόμενο σχήμα
+                rect(i,j, psif_size,psif_size);
+          } 
+    }
+    //κάνε update τα pixel με τα χρώματά τους και εμφάνισε το αποτέλεσμα 
+   img.updatePixels();
+
+}

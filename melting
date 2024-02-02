@@ -1,0 +1,115 @@
+
+PImage img;
+color c;
+int psif_size = 4; //size of psifida
+float s_of_m = 0.01; //speed  of melt
+int melt = 0;
+int melt_pos = 500;
+int time = 0;
+void setup() {
+  size(1000, 700);
+  img = loadImage("lisa.jpg");
+}      
+
+void draw() { 
+  melt_pos = mouseX;
+  background(255);
+      img.loadPixels();
+  
+    //Διαδικασία pixelate 
+// η img.loadPixels() διαβάζει όλα το χρώμα των pixels της εικόνας
+                     // και τα αποθηκέυει στο πίνακα pixels[]
+                     // το χρώμα είναι μια μεταβλητή color με τρια ορίσματα για R,G,B
+    
+    //for (int idx = 0; idx < img.width * img.height; idx++) {
+    //        int i = idx % img.width; // Calculate the x-coordinate
+    //        int j = idx / img.width; // Calculate the y-coordinate
+
+            // Access the pixel at (i, j)
+            //c = img.pixels[j * img.width + i];
+
+            // Your processing code here
+
+
+    for (int i = 0; i < img.width; i+=psif_size) {
+          for (int j = 0; j < img.height; j+=psif_size) {
+                //για κάθε pixel πάρε το χρώμα του (R,G,B) και βάλτα στη c
+                c = img.pixels[j*img.width + i];
+      
+                fill(c);//χρωμάτισε με χρώμα c το επόμενο σχήμα
+                noStroke();
+                  rect(i,j, psif_size,psif_size);
+                   
+                   c = img.pixels[j*img.width + melt_pos];
+                   fill(c);
+                   noStroke();
+                  rect(melt_pos,j*(1+s_of_m*1*melt), psif_size,psif_size*(1+s_of_m*1*melt));
+                   
+                   c = img.pixels[j*img.width + melt_pos+1*psif_size];
+                   fill(c);
+                   noStroke();
+                  rect(melt_pos+psif_size,j*(1+s_of_m*1*melt), psif_size,psif_size*(1+s_of_m*1*melt));
+                  
+                   
+                   c = img.pixels[j*img.width + melt_pos+2*psif_size];
+                   fill(c);
+                   noStroke();
+                  rect(melt_pos+2*psif_size,j*(1+s_of_m*2*melt), psif_size,psif_size*(1+s_of_m*2*melt));
+                  
+                  
+                  
+                  c = img.pixels[j*img.width + melt_pos+3*psif_size];
+                   fill(c);
+                   noStroke();
+                  rect(melt_pos+3*psif_size,j*(1+s_of_m*3*melt), psif_size,psif_size*(1+s_of_m*3*melt));
+                  
+                  c = img.pixels[j*img.width + melt_pos+4*psif_size];
+                   fill(c);
+                   noStroke();
+                  rect(melt_pos+4*psif_size,j*(1+s_of_m*4*melt), psif_size,psif_size*(1+s_of_m*4*melt));
+                  
+                  
+                  c = img.pixels[j*img.width + melt_pos+5*psif_size];
+                   fill(c);
+                   noStroke();
+                  rect(melt_pos+5*psif_size,j*(1+s_of_m*5*melt), psif_size,psif_size*(1+s_of_m*5*melt));
+                  
+                  
+                  c = img.pixels[j*img.width + melt_pos+6*psif_size];
+                   fill(c);
+                   noStroke();
+                  rect(melt_pos+6*psif_size,j*(1+s_of_m*5*melt), psif_size,psif_size*(1+s_of_m*5*melt));                  
+                  
+                  c = img.pixels[j*img.width + melt_pos+7*psif_size];
+                   fill(c);
+                   noStroke();
+                  rect(melt_pos+7*psif_size,j*(1+s_of_m*4*melt), psif_size,psif_size*(1+s_of_m*4*melt));
+                  
+                  c = img.pixels[j*img.width + melt_pos+8*psif_size];
+                   fill(c);
+                   noStroke();
+                  rect(melt_pos+8*psif_size,j*(1+s_of_m*3*melt), psif_size,psif_size*(1+s_of_m*3*melt));
+                  c = img.pixels[j*img.width + melt_pos+9*psif_size];
+                   fill(c);
+                   noStroke();
+                  rect(melt_pos+9*psif_size,j*(1+s_of_m*2*melt), psif_size,psif_size*(1+s_of_m*2*melt));                  
+                  
+                  c = img.pixels[j*img.width + melt_pos+10*psif_size];
+                   fill(c);
+                   noStroke();
+                  rect(melt_pos+10*psif_size,j*(1+s_of_m*1*melt), psif_size,psif_size*(1+s_of_m*1*melt));  
+                  
+        } 
+    }
+    //κάνε update τα pixel με τα χρώματά τους και εμφάνισε το αποτέλεσμα 
+   img.updatePixels();
+  //if(time > 10)melt++;
+  melt++;
+  time++; 
+  println(melt);
+  
+}
+
+void mouseMoved() {
+  melt=0;
+}
